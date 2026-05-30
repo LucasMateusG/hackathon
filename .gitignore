@@ -1,0 +1,5 @@
+node-api/node_modules
+node-api/.env
+node-api/dist
+node-api/nodemon.json
+node-api/package-lock.json
