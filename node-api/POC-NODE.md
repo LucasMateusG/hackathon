@@ -1,5 +1,5 @@
-## Dependencias do Node:
-
+# Dependencias do Node:
+## Verifique se as dependencias não instalaram dentro do container antes de executar comandos
 #### Para incializar o package.json
 - npm init - y
 #### Instalar as dependencias 
