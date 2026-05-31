@@ -1,13 +1,27 @@
-# Como iniciar
-### Instalação de dependencias
+## Dependencias do Node:
 
-- npm init - y -> para incializar o package.json
-- npm install express dotenv typeorm reflect-metadata zod cors tsx -> instalar as dependencias
-- npm install -D typescript @types/express @types/node ts-node-dev @types/validator ts-node -> instalar os complidos de ts e depenciais
--> npm install nodemon -D
-- npm install -D typescript ts-node @types/node
-- npx ts-node src/server.ts
+#### Para incializar o package.json
+- npm init - y
+#### Instalar as dependencias 
+- npm install 
+    - express 
+    - dotenv 
+    - typeorm 
+    - reflect-metadata 
+    - zod 
+    - cors 
+    - tsx 
 
+#### Instalar as dependencias de desenvolvimento (devDependecies)
+
+- npm install -D 
+    - @types/node
+    - @types/express
+    - @types/node
+    - nodemon
+    - ts-node
+    - typescript      
 # Configurção do TypeScript
 
 - npx tsc --init
+- npx ts-node src/server.ts
