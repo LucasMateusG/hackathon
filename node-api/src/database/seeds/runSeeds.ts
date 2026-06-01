@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import { AppDataSource } from "../data-source.js";
-import { UserEntity } from "../../models/UserEntity.js";
+import { AppDataSource } from "../data-source";
+import { UserEntity } from "../../models/UserEntity";
 
 async function runSeeds() {
     await AppDataSource.initialize();

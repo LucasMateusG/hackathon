@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import "dotenv/config";
 import { DataSource } from "typeorm";
-import  { UserEntity }  from "../models/UserEntity.js";
+import  { UserEntity }  from "../models/UserEntity";
 
 
 const databaseHost = process.env.DATABASE_HOST || "db";
@@ -21,5 +21,5 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     entities: [UserEntity],
     migrations: ["src/database/migrations/*.ts"],
-    migrationsRun: false,
+    migrationsRun: true,
 });
