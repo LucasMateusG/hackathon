@@ -2,22 +2,19 @@ import "reflect-metadata";
 import "dotenv";
 import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
-import userRouter from './routes/userRouter.js';
-import { AppDataSource } from "./database/data-source.js";
+import userRouter from './routes/userRouter';
+import { AppDataSource } from "./database/data-source";
+import { errorMiddleware } from "./middlewares/ErrorMiddleware";
 
 const server = express();
 const PORT = process.env.PORT;
 server.use(cors())
 
-// permite que o Node entenda JSON nativamente
 server.use(express.json());
 
-server.use('/users', userRouter);
+server.use(userRouter);
 
-
-server.listen(Number(PORT), () => {
-    console.log(`Server running on port ` + PORT);
-});
+server.use(errorMiddleware);
 
 AppDataSource.initialize()
     .then(() => {
@@ -25,4 +22,8 @@ AppDataSource.initialize()
     })
     .catch((err) => {
         console.error('Error during Data Source initialization:', err);
-    });
+});
+
+server.listen(Number(PORT), () => {
+    console.log(`Server running on port ` + PORT);
+});
