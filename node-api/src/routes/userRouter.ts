@@ -10,10 +10,10 @@ const userRouter = Router();
 const userRepository = new UserRepository(AppDataSource.getRepository(UserEntity));
 const userService = new UserService(userRepository);
 const userController = new UserController(userService)
-userRouter.get("/", userController.listUser);
-userRouter.get("/:id", userController.findUserById);
-userRouter.post("/", userController.register);
-userRouter.put("/:id", userController.updateUser);
-userRouter.delete("/:id", userController.deleteUser);
+userRouter.get("/users", userController.listUser);
+userRouter.get("/users/:id", userController.findUserById);
+userRouter.post("/users", userController.register);
+userRouter.put("/users/:id", userController.updateUser);
+userRouter.delete("/users/:id", userController.deleteUser);
 
 export default userRouter;
