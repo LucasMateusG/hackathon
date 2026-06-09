@@ -49,3 +49,5 @@ Docker, através do compose.yml criando as variaveis de ambiente, gerando um con
 3. Após o clone rode o comando docker compose up --build para construir os containers.
     - Veja se dentro dos containers estão operando
 4. Acesse a pagina web no enderço localhost:80, o phpmyadmin para visualizar o banco no endereço localhost:8080. 
+
+5. Rode o npm run seed:run para povoar o banco dentro do container de node.js
