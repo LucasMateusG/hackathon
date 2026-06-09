@@ -1,3 +1,11 @@
+<?php
+    require_once 'classes/Api.php';
+
+    $dadosApi = new Api();
+    $users = $dadosApi->listUser();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +14,20 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>PHP Web</h1>
+    <div>
+        <h1>Teste conexão com api via cUrl</h1>
+        <table>
+            <tr>
+                <th>Nome:</th>
+                <th>Email:</th>
+            </tr>
+            <tr>
+            <?php foreach ($users as $row): ?>
+                <td><?= $linha['name']?></td>
+                <td>><?= $linha['email']?></td>
+            <?php endforeach; ?>    
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
