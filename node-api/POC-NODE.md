@@ -5,6 +5,7 @@
 #### Instalar as dependencias 
 - npm install 
     - express 
+    - bcrypt
     - dotenv 
     - typeorm 
     - reflect-metadata 
