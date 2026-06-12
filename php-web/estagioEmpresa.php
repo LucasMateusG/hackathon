@@ -21,7 +21,7 @@
                 <li><a href="#">Painel Geral</a></li>
                 <li><a href="#">Mostrar suas vagas</a></li>
                 <li><a href="#">Relatório de Estágios</a></li>
-                <li class="menu-sair"><a href="index.html"> Sair</a></li>
+                <li class="menu-sair"><a href="index.php"> Sair</a></li>
             </ul>
         </nav>
 

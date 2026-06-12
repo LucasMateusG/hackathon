@@ -60,7 +60,7 @@
             </form>
 
             <div class="cadastro-links">
-                <a href="LoginAluno.html">Já tem uma conta? Faça Login</a>
+                <a href="login-aluno.php">Já tem uma conta? Faça Login</a>
             </div>
         </div>
     </div>

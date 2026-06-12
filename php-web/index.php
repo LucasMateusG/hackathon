@@ -57,7 +57,7 @@
                     <li class="dropdown-item">
                         <a href="#" class="drop-trigger">ALUNOS <span class="arrow">▾</span></a>
                         <div class="dropdown-menu">
-                            <a href="login-aluno.html">Portal de Estágios (Login)</a>
+                            <a href="login-aluno.php">Portal de Estágios (Login)</a>
                             <a href="#">Vagas Disponíveis</a>
                             <a href="#">Documentação e Manuais</a>
                         </div>
@@ -67,7 +67,7 @@
                     <li class="dropdown-item">
                         <a href="#" class="drop-trigger">EMPRESA <span class="arrow">▾</span></a>
                         <div class="dropdown-menu">
-                            <a href="login-empresa.html">Portal da Empresa (Login)</a>
+                            <a href="login-empresa.php">Portal da Empresa (Login)</a>
                             <a href="#">Cadastrar Nova Vaga</a>
                             <a href="#">Convênio de Estágio</a>
                         </div>

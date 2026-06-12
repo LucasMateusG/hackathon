@@ -26,7 +26,7 @@
             </form>
 
             <div class="cadastro-links">
-                <a href="login-aluno.html">Voltar para o Login</a>
+                <a href="login-aluno.php">Voltar para o Login</a>
             </div>
         </div>
     </div>

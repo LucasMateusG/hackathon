@@ -81,7 +81,7 @@
             </form>
 
             <div class="cadastro-links">
-                <a href="login-empresa.html">Voltar para o Login da Empresa</a>
+                <a href="login-empresa.php">Voltar para o Login da Empresa</a>
             </div>
         </div>
     </div>

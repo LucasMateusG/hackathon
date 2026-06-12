@@ -22,7 +22,7 @@
                 <li><a href="#">Buscar Vagas</a></li>
                 <li><a href="#">Minhas Candidaturas</a></li>
                 <li><a href="#">Meu Currículo</a></li>
-                <li class="menu-sair"><a href="index.html"> Sair</a></li>
+                <li class="menu-sair"><a href="index.php"> Sair</a></li>
             </ul>
         </nav>
 
