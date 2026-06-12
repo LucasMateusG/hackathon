@@ -12,8 +12,8 @@
 /* Container Principal (Grid) */
 .dashboard-container {
     display: grid;
-    grid-template-columns: 240px 1fr; /* Menu lateral fixo + Resto da tela */
-    grid-template-rows: 60px 1fr;    /* Barra superior + Resto da tela */
+    grid-template-columns: 150px 1fr; 
+    grid-template-rows: 60px 1fr;    
     grid-template-areas: 
         "header header"
         "sidebar main";
@@ -50,56 +50,40 @@
    -------------------------------------------------------------------------- */
 .sidebar {
     grid-area: sidebar;
-    background-color: #0084ff; /* O azul de destaque do seu protótipo */
-    color: #ffffff;
-    padding: 20px 0;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-}
-
-.sidebar ul { 
-    list-style: none; 
-}
-
-.sidebar ul li a {
-    display: block;
-    color: #ffffff;
-    padding: 15px 20px;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: background 0.3s, padding-left 0.3s;
-}
-
-.sidebar ul li a:hover { 
-    background-color: rgba(255, 255, 255, 0.15);
-    padding-left: 25px;
-}/* --------------------------------------------------------------------------
-   2. MENU LATERAL (SIDEBAR AZUL)
-   -------------------------------------------------------------------------- */
-.sidebar {
-    grid-area: sidebar;
     background-color: #0084ff; 
     color: #ffffff;
     padding: 20px 0;
     box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-
-    /* 👇 ATIVADO: Transforma a sidebar em um bloco flexível */
     display: flex;
     flex-direction: column;
 }
 
 .sidebar ul { 
     list-style: none; 
-
-    /* 👇 ATIVADO: Faz a lista interna se esticar verticalmente */
     display: flex;
     flex-direction: column;
     flex-grow: 1; 
 }
 
-/* 👇 NOVO: Essa classe faz a mágica de empurrar o item para o rodapé */
+/* Ajuste nos links para se adaptarem à nova largura */
+.sidebar ul li a {
+    display: block;
+    color: #ffffff;
+    padding: 15px 15px; 
+    text-decoration: none;
+    font-size: 0.9rem;  
+    transition: background 0.3s, padding-left 0.3s;
+}
+
+.sidebar ul li a:hover { 
+    background-color: rgba(255, 255, 255, 0.15);
+    padding-left: 20px; 
+}
+
+/* Empurra o item "Sair" para o rodapé */
 .sidebar ul li.menu-sair {
     margin-top: auto; 
-    padding-bottom: 15px; /* Deixa um respiro para não colar totalmente no chão */
+    padding-bottom: 15px; 
 }
 
 /* --------------------------------------------------------------------------
