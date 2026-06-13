@@ -3,6 +3,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity({name: "contratos"})
 export class ContratosEntity{
     @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column({type: "varchar",})
     vagas_id!: number;
 
     @Column({type: "varchar",})

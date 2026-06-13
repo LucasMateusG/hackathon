@@ -6,7 +6,7 @@ import { Column,
 @Entity({name : "operacoes_empresa"})
 export class OperadoresEmpresasEntity { 
     @PrimaryGeneratedColumn()
-    idoperacoes_aluno!: number;
+    id!: number;
 
     @Column({ type: "varchar",})
     descricao!: string;
