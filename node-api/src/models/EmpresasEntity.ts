@@ -23,7 +23,7 @@ export class EmpresasEntity{
     @Column({type: "varchar",})
     responsavel!: string;
 
-    @Column({type: "varchar"})
+    @Column({type: "boolean"})
     status!: boolean;
 
     @Column({type: "integer"})
