@@ -3,10 +3,15 @@ import { IAlunoRepository } from "../repositories/AlunoRepository";
 import {  AlunoPublico, AlunosEntity } from "../models/AlunosEntity";
 import AppError from "../utils/AppErrors";
 
+function noPassword(a: AlunosEntity): AlunoPublico{
+    const { senha: _s, ...rest} = a;
+    return rest;
+}
 
 export class AlunoService{
     constructor(private readonly alunoRepo: IAlunoRepository){}
 
+    
     async listarAlunoPorId(id: number): Promise<AlunoPublico>{
         const aluno = await this.alunoRepo.getAlunoById(id);
         if(!aluno){

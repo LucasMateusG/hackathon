@@ -1,10 +1,14 @@
 <?php
+    ob_start();
     session_start();
+    //var_dump($_SESSION); 
+    //var_dump($_GET);     
     require_once 'classes/Aluno.php';
     if (!isset($_SESSION['alunoLogado']) || $_SESSION['alunoLogado'] !== true){
         header('Location: login-aluno.php');
         exit;
     }
+    $id = $_GET['id'] ?? $_SESSION['aluno_id'];
     $aluno = new Aluno();
     $resposta = $aluno->buscarVagas();
     
@@ -14,6 +18,7 @@
         $vagas = $resposta['data']['vagas'];
     }
     //var_dump($vagas);
+    ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +84,8 @@
                                     <strong style="font-size: 1.1rem; color: #115c74;"><?=htmlspecialchars($vaga['vaga_cargo'] ?? 'Sem titulo')?></strong>
                                     <p style="color: #555; margin-top: 5px;">Empresa: <?=$vaga['empresa_razao_social'] ?? '' ?> 
                                     | Telefone de contato: <?=$vaga['telefone'] ?? '' ?> 
-                                    | E-mail: <?=$vaga['empresa_email'] ?? '' ?> </p>
+                                    | E-mail: <?=$vaga['empresa_email'] ?? '' ?>
+                                    | Requisitos: <?=$vaga['vaga_requisitos'] ?? '' ?> </p>
                                 </div>
                                 <button class="btn-candidatar" onclick="alert('Candidatura enviada com sucesso!')">Candidatar-se</button>
                             </div>

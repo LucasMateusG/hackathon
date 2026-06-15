@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import type { CandidaturaService } from '../services/CandidaturaService';
+import type { CandidaturaService } from '../services/candidaturaService';
 import AppError from '../utils/AppErrors';
 import z from "zod";
 
@@ -22,6 +22,22 @@ export class CandidaturaController {
                 throw new AppError(400, "Erro ao realizar candidatura")
             }
             res.status(201).json({message: "Candidatura criada", candidaturas});
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    listarCandidaturasPorAluno = async(req: Request, res: Response, next: NextFunction) => {
+        try {
+            const id = Number(req.params.id);
+            if(!Number.isInteger(id) || id < 1){
+                throw new AppError(400, "Parametros errados");
+            }
+            const candidaturas = await this.candidaturaService.listarCandidaturasPorAluno(id);
+            if(!candidaturas){
+                throw new AppError(404, "Nada encontrado")
+            }
+            res.json({candidaturas});
         } catch (error) {
             next(error)
         }

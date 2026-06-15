@@ -1,23 +1,30 @@
 <?php
+    ob_start();
     session_start();
     require_once 'classes/Aluno.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $aluno = new Aluno();
         $res = $aluno->logar($_POST['cpf'],$_POST['senha'], $_POST['email']);
-        //var_dump($aluno->loginSucesso($res));
+        //var_dump($res);
+        //var_dump($res['data']['loginSemSenha']['id']);
+        session_unset();   // limpa sessão antiga
+        session_destroy(); // destrói a sessão
+        session_start(); 
         if ($aluno->loginSucesso($res)){
+            $id = $res['data']['loginSemSenha']['id'];
             $_SESSION['aluno_cpf'] = $_POST['cpf'];
             $_SESSION['aluno_email'] = $_POST['email'];
             $_SESSION['alunoLogado'] = true;
+            $_SESSION['aluno_id'] = $id;
             //var_dump($_SESSION); 
-            header('Location: estagioAluno.php');
+            header('Location: estagioAluno.php?id=' . $id);
         }else{
             $mensagem = 'Login inválido. Verifique seus dados e tente novamente.';
             $tipo_msg = 'erro';
         }
     }
-
+    ob_end_flush();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

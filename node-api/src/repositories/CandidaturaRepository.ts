@@ -6,6 +6,7 @@ export interface ICandidaturasRepository{
     createCandidatura(data: Omit<CandidaturasEntity, "id">): Promise<CandidaturasEntity>;
     saveCandidatura(entity: CandidaturasEntity): Promise<CandidaturasEntity>;
     deleteCandidatura(id: number): Promise<boolean>;
+    getCandidaturaByAluno(id_aluno: number): Promise<CandidaturasEntity | undefined>;
 }; 
 
 export class CandidaturasRepository implements ICandidaturasRepository{
@@ -32,4 +33,8 @@ export class CandidaturasRepository implements ICandidaturasRepository{
         return (rm.affected ?? 0) > 0;
     }
     
+    async getCandidaturaByAluno(aluno_id: number): Promise<CandidaturasEntity | undefined> {
+        const rows = await this.repo.findOne({where: {aluno_id}});
+        return rows ?? undefined;
+    }
 }; 
