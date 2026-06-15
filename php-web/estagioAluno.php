@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Aluno - UniALFA</title>
     
-   <link rel="stylesheet" href="css/dashboard.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
 
@@ -130,12 +130,15 @@
     <script>
         function alternarAba(event, idAba) {
             event.preventDefault();
+            // Oculta todas as abas
             const conteudos = document.querySelectorAll('.tab-content');
             conteudos.forEach(conteudo => conteudo.classList.remove('active'));
             
+            // Remove a classe active dos links do menu
             const links = document.querySelectorAll('.tab-link');
             links.forEach(link => link.classList.remove('active'));
 
+            // Mostra a aba atual e marca o link como ativo
             document.getElementById(idAba).classList.add('active');
             event.currentTarget.classList.add('active');
         }
