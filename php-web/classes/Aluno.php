@@ -22,5 +22,9 @@
         public function atualizarSenha():array{
             return $this->request('GET', 'caminho');
         }
+
+        public function buscarVagas():array{
+            return $this->request('GET', 'vagas');
+        }
     }
 

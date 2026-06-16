@@ -6,10 +6,7 @@ export interface IAlunoRepository{
     getAlunoByCpf(cpf:string):Promise<AlunosEntity | undefined>
 }; 
 
-function noPassword(a: AlunosEntity): AlunoPublico{
-    const { senha: _s, ...rest} = a;
-    return rest;
-}
+
 
 export class AlunoRepository implements IAlunoRepository{
     constructor(private readonly repo: Repository<AlunosEntity>){};

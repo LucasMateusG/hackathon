@@ -49,3 +49,15 @@ function executarRecuperacao(event) {
     document.getElementById('form-recuperar').style.display = 'none';
     document.getElementById('msg-sucesso').style.display = 'block';
 }
+
+function alternarAba(event, idAba) {
+    event.preventDefault();
+    const conteudos = document.querySelectorAll('.tab-content');
+    conteudos.forEach(conteudo => conteudo.classList.remove('active'));
+
+    const links = document.querySelectorAll('.tab-link');
+    links.forEach(link => link.classList.remove('active'));
+
+    document.getElementById(idAba).classList.add('active');
+    event.currentTarget.classList.add('active');
+}

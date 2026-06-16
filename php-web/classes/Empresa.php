@@ -11,7 +11,7 @@
             ]);
         }
 
-        public function loginSucesso(array $res):bool{
+        public function loginSucess(array $res):bool{
             //var_dump($res['status'] === 200); 
             //var_dump(isset($res['data']['message']));
             return $res['status'] === 200 && isset($res['data']['message']);

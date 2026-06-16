@@ -6,11 +6,12 @@
         $empresa = new Empresa();
         $res = $empresa->logar($_POST['cnpj'], $_POST['senha'], $_POST['email']);
         //var_dump($res);
-        //var_dump($empresa->loginSucesso($res));
-        if ($empresa->loginSucesso($res)){
+        //var_dump($empresa->resHttp($res));
+        if ($empresa->loginSucess($res)){
             $_SESSION['empresa_cnpj'] = $_POST['cnpj'];
             $_SESSION['empresa_email'] = $_POST['email'];
             $_SESSION['empresaLogado'] = true;
+            //var_dump($_SESSION);
             header('Location: estagioEmpresa.php');
         }else{
            $mensagem = 'Erro ao entrar no cadastros empresa. Verifique os dados e tente novamente.';

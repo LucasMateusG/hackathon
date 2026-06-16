@@ -1,10 +1,24 @@
 <?php
+    ob_start();
     session_start();
-    
+    //var_dump($_SESSION); 
+    //var_dump($_GET);     
+    require_once 'classes/Aluno.php';
     if (!isset($_SESSION['alunoLogado']) || $_SESSION['alunoLogado'] !== true){
         header('Location: login-aluno.php');
         exit;
     }
+    $id = $_GET['id'] ?? $_SESSION['aluno_id'];
+    $aluno = new Aluno();
+    $resposta = $aluno->buscarVagas();
+    
+    $vagas = [];
+
+    if($resposta ['status'] === 200 && isset($resposta['data'])){
+        $vagas = $resposta['data']['vagas'];
+    }
+    //var_dump($vagas);
+    ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +29,8 @@
     <title>Painel do Aluno - UniALFA</title>
     
     <link rel="stylesheet" href="css/dashboard.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
 
@@ -61,21 +77,22 @@
                     <h3>Vagas Disponíveis para seu Curso</h3>
                     <p style="color: #666; margin-bottom: 20px;">Candidate-se às oportunidades enviando seu perfil diretamente às empresas parceiras.</p>
                     
-                    <div class="vaga-card">
-                        <div>
-                            <strong style="font-size: 1.1rem; color: #115c74;">Estágio em Desenvolvimento Web Back-End</strong>
-                            <p style="color: #555; margin-top: 5px;">Empresa: Alfa Tech Soluções | Bolsa: R$ 1.200,00</p>
-                        </div>
-                        <button class="btn-candidatar" onclick="alert('Candidatura enviada com sucesso!')">Candidatar-se</button>
-                    </div>
-
-                    <div class="vaga-card">
-                        <div>
-                            <strong style="font-size: 1.1rem; color: #115c74;">Estágio em Suporte e Infraestrutura</strong>
-                            <p style="color: #555; margin-top: 5px;">Empresa: Geração de Saberes | Bolsa: R$ 1.000,00</p>
-                        </div>
-                        <button class="btn-candidatar" onclick="alert('Candidatura enviada com sucesso!')">Candidatar-se</button>
-                    </div>
+                    <?php if(empty($vagas)): ?>
+                        <p>Não há vagas!</p>
+                    <?php else: ?>
+                        <?php foreach($vagas as $vaga): ?>
+                            <div class="vaga-card">                                                
+                                <div>
+                                    <strong style="font-size: 1.1rem; color: #115c74;"><?=htmlspecialchars($vaga['vaga_cargo'] ?? 'Sem titulo')?></strong>
+                                    <p style="color: #555; margin-top: 5px;">Empresa: <?=$vaga['empresa_razao_social'] ?? '' ?> 
+                                    | Telefone de contato: <?=$vaga['telefone'] ?? '' ?> 
+                                    | E-mail: <?=$vaga['empresa_email'] ?? '' ?>
+                                    | Requisitos: <?=$vaga['vaga_requisitos'] ?? '' ?> </p>
+                                </div>
+                                <button class="btn-candidatar" onclick="alert('Candidatura enviada com sucesso!')">Candidatar-se</button>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
                 </div>
             </div>
 
@@ -126,23 +143,5 @@
 
         </main>
     </div>
-
-    <script>
-        function alternarAba(event, idAba) {
-            event.preventDefault();
-            // Oculta todas as abas
-            const conteudos = document.querySelectorAll('.tab-content');
-            conteudos.forEach(conteudo => conteudo.classList.remove('active'));
-            
-            // Remove a classe active dos links do menu
-            const links = document.querySelectorAll('.tab-link');
-            links.forEach(link => link.classList.remove('active'));
-
-            // Mostra a aba atual e marca o link como ativo
-            document.getElementById(idAba).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-    </script>
-
 </body>
 </html>

@@ -36,7 +36,8 @@ export class AlunoController{
             if(!login){
                 throw new AppError(404, "Erro ao logar");
             }
-            res.status(200).json({message: "Aluno logado"})
+            const { senha, ...loginSemSenha } = login;
+            res.status(200).json({message: "Aluno logado", loginSemSenha})
         } catch (error) {
             next(error)
         }

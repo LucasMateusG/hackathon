@@ -37,4 +37,13 @@ export class CandidaturaService{
         return await this.candidaturasRepo.deleteCandidatura(id);
     }
 
+    async listarCandidaturasPorAluno(aluno_id: number): Promise<CandidaturasEntity>{
+        const candidaturas = await this.candidaturasRepo.getCandidaturaByAluno(aluno_id);
+        if(!candidaturas){
+            throw new AppError(404, "Sem candidaturas");
+        }
+
+        return candidaturas;
+    }
+
 };
