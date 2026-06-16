@@ -67,6 +67,6 @@ public class PrincipalGUI extends JFrame implements PainelDefault {
     }
 
     private void abrirRelatorio(ActionEvent actionEvent) {
-        WindowManager.abrirJanela(RelatorioGUI.class);
+        WindowManager.abrirJanela(RelatoriosGUI.class);
     }
 }

@@ -109,4 +109,7 @@ public class Aluno {
     public void setIdEnderecoAluno(Long idEnderecoAluno) {
         this.idEnderecoAluno = idEnderecoAluno;
     }
+
+
+
 }

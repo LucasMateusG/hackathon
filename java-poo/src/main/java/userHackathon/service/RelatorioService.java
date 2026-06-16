@@ -1,80 +1,94 @@
+
 package userHackathon.service;
 
-import userHackathon.dao.RelatoriosDao;
-import userHackathon.model.Relatorios;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.BufferedReader;
+import userHackathon.model.Aluno;
+import userHackathon.model.Empresa;
+
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.List;
 
-public class RelatorioService {
+    public class RelatorioService {
 
-    private final RelatoriosDao relatoriosDao;
+        //  "/n = quebra de linha"
 
-    public RelatorioService() {
-        this.relatoriosDao = new RelatoriosDao();
-    }
+        public void gerarRelatorioAlunos(List<Aluno> alunos, File arquivoDestino) throws IOException {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoDestino))) {
+                writer.write("=========================================================================\n");
+                writer.write("                       RELATÓRIO DE ALUNOS CADASTRADOS                   \n");
+                writer.write("=========================================================================\n\n");
 
-    public boolean salvarRelatorio(Relatorios relatorio) {
-        if (relatorio == null) {
-            System.out.println("[Service] Relatório inválido (nulo).");
-            return false;
-        }
-        try {
-            return relatoriosDao.salvar(relatorio); // Chama o salvar do seu DAO
-        } catch (SQLException e) {
-            System.out.println("[Erro SQL ao Salvar] " + e.getMessage());
-            return false;
-        }
-    }
+                if (alunos.isEmpty()) {
+                    writer.write("Nenhum aluno cadastrado no sistema até o momento.\n");
+                } else {
+                    for (Aluno aluno : alunos) {
+                        writer.write(String.format("RA: %-10s | Nome: %-30s | CPF: %-15s\n",
+                                aluno.getRa() != null ? aluno.getRa() : "N/A",
+                                aluno.getNome(),
+                                aluno.getCpf()));
+                        writer.write(String.format("Curso: %-27s | Período: %-2dº | Email: %-30s\n",
+                                aluno.getCurso(),
+                                aluno.getPeriodo() != null ? aluno.getPeriodo() : 0,
+                                aluno.getEmail()));
 
-    public List<Relatorios> listar() {
-        try {
-            return relatoriosDao.listar();
-        } catch (SQLException e) {
-            System.out.println("[Erro SQL ao Listar] " + e.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public boolean importarTxt(File arquivo) {
-        if (arquivo == null || !arquivo.exists()) {
-            System.out.println("[Service] Arquivo TXT inválido ou não encontrado.");
-            return false;
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-
-            while ((linha = br.readLine()) != null) {
-                if (!linha.trim().isEmpty()) {
-                    String[] dados = linha.split(";");
-
-                    if (dados.length >= 5) {
-                        Relatorios novoRelatorio = new Relatorios();
-
-                        novoRelatorio.setId_empresas(Long.parseLong(dados[0].trim()));
-                        novoRelatorio.setId_alunos(Long.parseLong(dados[1].trim()));
-                        novoRelatorio.setId_vagas(Long.parseLong(dados[2].trim()));
-                        novoRelatorio.setId_candidaturas(Long.parseLong(dados[3].trim()));
-                        novoRelatorio.setId_contratos(Long.parseLong(dados[4].trim()));
-
-                        this.salvarRelatorio(novoRelatorio);
+                        if (aluno.getEndereco() != null) {
+                            writer.write(String.format("Endereço: %s, Nº %s - %s, %s/%s\n",
+                                    aluno.getEndereco().getLogradouro(),
+                                    aluno.getEndereco().getNumLogradouro(),
+                                    aluno.getEndereco().getBairro(),
+                                    aluno.getEndereco().getCidade(),
+                                    aluno.getEndereco().getUf()));
+                        }
+                        writer.write("-------------------------------------------------------------------------\n");
                     }
                 }
+                writer.write("\nFim do Relatório. Total de registros: " + alunos.size() + "\n");
             }
-            System.out.println("[Service] Arquivo de dados importado com sucesso!");
-            return true;
+        }
 
-        } catch (IOException e) {
-            System.out.println("[Service] Falha ao ler o arquivo TXT: " + e.getMessage());
-            return false;
-        } catch (NumberFormatException e) {
-            System.out.println("[Service] Erro: O arquivo TXT contém caracteres onde deveriam ser apenas IDs numéricos.");
-            return false;
+
+    public void gerarRelatorioEmpresas(List<Empresa> empresas, File arquivoDestino) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoDestino))) {
+            writer.write("=========================================================================\n");
+            writer.write("                      RELATÓRIO DE EMPRESAS CADASTRADAS                  \n");
+            writer.write("=========================================================================\n\n");
+            for (Empresa emp : empresas) {
+                writer.write(String.format("ID: %-5d | Empresa: %-30s | Status: %s\n",
+                        emp.getId(), emp.getRazaoSocial(), (emp.getStatus() ? "ATIVA" : "BLOQUEADA/INATIVA")));
+                writer.write("-------------------------------------------------------------------------\n");
+            }
         }
     }
-}
+/*
+    // 3. Relatório de Vagas Disponíveis
+    public void gerarRelatorioVagas(List<Vaga> vagas, File arquivoDestino) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoDestino))) {
+            writer.write("=========================================================================\n");
+            writer.write("                        RELATÓRIO DE VAGAS DISPONÍVEIS                   \n");
+            writer.write("=========================================================================\n\n");
+            for (Vaga vaga : vagas) {
+                writer.write(String.format("Vaga ID: %-5d | Título: %-25s | Empresa: %-25s\n",
+                        vaga.getId(), vaga.getTitulo(), vaga.getEmpresaNome()));
+                writer.write("-------------------------------------------------------------------------\n");
+            }
+        }
+    }
+
+    // 4. Relatório de Candidaturas e Status
+    public void gerarRelatorioCandidaturas(List<Candidatura> candidaturas, File arquivoDestino) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivoDestino))) {
+            writer.write("=========================================================================\n");
+            writer.write("                     RELATÓRIO DE CANDIDATURAS REALIZADAS                \n");
+            writer.write("=========================================================================\n\n");
+            for (Candidatura cand : candidaturas) {
+                writer.write(String.format("Aluno: %-25s | Vaga: %-25s | Status: %s\n",
+                        cand.getAlunoNome(), cand.getVagaTitulo(), cand.getStatus()));
+                writer.write("-------------------------------------------------------------------------\n");
+            }
+        }
+    }
+    */
+    }
+

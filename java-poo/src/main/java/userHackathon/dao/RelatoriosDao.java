@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RelatoriosDao extends Dao {
-    public List<Relatorios> listar() throws SQLException {
+    public List<Relatorios> listarEmpresas() throws SQLException {
 
         List<Relatorios> relatorios = new ArrayList<>();
 
         var resultadorRelatorios = getConnection()
-                .prepareStatement("select * from relatorios")
+                .prepareStatement("select * from empresas")
                 .executeQuery();
 
         while (resultadorRelatorios.next()) {
