@@ -7,7 +7,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class RelatorioGUI extends JFrame implements PainelDefault{
     private final RelatorioService service;
