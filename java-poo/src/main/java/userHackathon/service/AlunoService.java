@@ -24,18 +24,6 @@ public class AlunoService {
         }
     }
 
-    public boolean salvarAluno(Aluno aluno) {
-        if (aluno == null) {
-            System.out.println("[Service] Aluno inválido (nulo).");
-            return false;
-        }
-        try {
-            System.out.println("ERRO" + e.getMessage());
-            e.getStackTrace();
-            return null;
-        }
-    }
-
     public void incluir(Aluno aluno, EnderecoAluno endereco){
         try{
             var dao = new AlunoDao();
@@ -60,25 +48,11 @@ public class AlunoService {
                     enderecoDao.atualizar(endereco);
                 }
             }
-            return true;
 
         } catch (Exception e) {
-            System.out.println("[Service] Erro ao salvar aluno: " + e.getMessage());
-            return false;
+            System.out.println("Erro ao salvar aluno: " + e.getMessage());
         }
     }
-
-    public void importarTxt(File arquivo) throws Exception {
-        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-        }catch (java.sql.SQLException ex){
-            System.out.println(ex.getMessage());
-        }
-        catch(Exception e){
-            System.out.println("Error" + e.getMessage());
-        }
-    }
-
-
 
 
 //pedir para rever se está certo

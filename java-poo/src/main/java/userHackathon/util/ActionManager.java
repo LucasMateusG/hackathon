@@ -7,6 +7,8 @@ import userHackathon.service.AlunoService;
 import userHackathon.service.EmpresaService;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class ActionManager {
     public static void configurarBotaoStatusEmpresa(
@@ -90,6 +92,37 @@ public class ActionManager {
                 JOptionPane.showMessageDialog(null, "Erro ao incluir aluno: " + ex.getMessage(),
                         "Erro", JOptionPane.ERROR_MESSAGE);
                 System.out.println("Error: " + ex.getMessage());
+            }
+        });
+    }
+
+    public static void configurarBotaoImportarAluno(
+            JButton botao,
+            Component componentePai,
+            AlunoService service,
+            Runnable atualizarTela
+    ) {
+        botao.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            int retorno = fileChooser.showOpenDialog(componentePai);
+
+            if (retorno == JFileChooser.APPROVE_OPTION) {
+                File arquivoSelecionado = fileChooser.getSelectedFile();
+                try {
+                    service.importarTxt(arquivoSelecionado);
+
+                    JOptionPane.showMessageDialog(componentePai, "Alunos importados com sucesso!",
+                            "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Se a importação der certo, avisa a GUI para recarregar a tabela
+                    if (atualizarTela != null) {
+                        atualizarTela.run();
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(componentePai, "Erro ao importar: " + ex.getMessage(),
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    System.out.println("Error: " + ex.getMessage());
+                }
             }
         });
     }
